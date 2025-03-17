@@ -1,10 +1,11 @@
-#include <MIDI.h>
+#include <MIDIUSB.h>
 #include <Bounce2.h>
 // Both of these libraries are necessary for this to function properly.
 const int channel = 16; // sending all MIDI in this code on last channel. Keeps it away from other devices, most of the time.
 const int maxValue = 127; // can be used both for Control Change and MIDI note ON OFF
 const int minValue = 0; // can be used both for Control Change and MIDI note
-const int ledPin = 13; // internal LED (Teensy LC)
+const int ledPin = 13; // internal LED (Teensy LC) -- might need to change this to "LED_BUILTIN" if using another board
+
 Bounce button1 = Bounce(1, 5);
 Bounce button2 = Bounce(2, 5);
 Bounce button3 = Bounce(3, 5);
@@ -31,7 +32,14 @@ pinMode(8, INPUT_PULLUP);
 pinMode(ledPin, OUTPUT); // internal LED for Teensy LC
 
 
-// MIDI.begin(16);
+// begin(16);
+}
+
+// every time the function is called, it will use this as a template, and replace the variables with what you specify in the "void loop" section
+void sendControlChange(byte control, byte value, byte channel) {
+  midiEventPacket_t event = {0x0B, 0xB0 | (channel - 1), control, value};
+    MidiUSB.sendMIDI(event);
+    MidiUSB.flush();
 }
 void loop() {
 
@@ -47,35 +55,35 @@ button8.update();
 
 // when specified button is PRESSED:
 if (button1.fallingEdge()) {
-MIDI.sendControlChange(1, maxValue, channel);
+sendControlChange(1, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button2.fallingEdge()) {
-MIDI.sendControlChange(2, maxValue, channel);
+sendControlChange(2, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button3.fallingEdge()) {
-MIDI.sendControlChange(3, maxValue, channel);
+sendControlChange(3, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button4.fallingEdge()) {
-MIDI.sendControlChange(4, maxValue, channel);
+sendControlChange(4, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button5.fallingEdge()) {
-MIDI.sendControlChange(5, maxValue, channel);
+sendControlChange(5, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button6.fallingEdge()) {
-MIDI.sendControlChange(6, maxValue, channel);
+sendControlChange(6, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button7.fallingEdge()) {
-MIDI.sendControlChange(7, maxValue, channel);
+sendControlChange(7, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 if (button8.fallingEdge()) {
-MIDI.sendControlChange(8, maxValue, channel);
+sendControlChange(8, maxValue, channel);
 digitalWrite(ledPin, HIGH);
 }
 // when specified button is RELEASED:

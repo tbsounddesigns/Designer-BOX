@@ -80,37 +80,36 @@ digitalWrite(ledPin, HIGH);
 }
 // when specified button is RELEASED:
 if (button1.risingEdge()) {
-MIDI.sendControlChange(1, minValue, channel);
+sendControlChange(1, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button2.risingEdge()) {
-MIDI.sendControlChange(2, minValue, channel);
+sendControlChange(2, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button3.risingEdge()) {
-MIDI.sendControlChange(3, minValue, channel);
+sendControlChange(3, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button4.risingEdge()) {
-MIDI.sendControlChange(4, minValue, channel);
+sendControlChange(4, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button5.risingEdge()) {
-MIDI.sendControlChange(5, minValue, channel);
+sendControlChange(5, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button6.risingEdge()) {
-MIDI.sendControlChange(6, minValue, channel);
+sendControlChange(6, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button7.risingEdge()) {
-MIDI.sendControlChange(7, minValue, channel);
+sendControlChange(7, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
 if (button8.risingEdge()) {
-MIDI.sendControlChange(8, minValue, channel);
+sendControlChange(8, minValue, channel);
 digitalWrite(ledPin, LOW);
 }
-while (MIDI.read()){ // necessary to prevent crashing, in case the micro- controller receives MIDI it was not prepared to decode
 }
-}
+
